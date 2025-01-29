@@ -1,16 +1,16 @@
 # Setup and Integate Sonatype Nexus with Jenkins
 
-## Step-XX: Setup Nexus Server
+## Step-01: Setup Nexus Server
 
-### System Requirments
+### 1.1 System Requirments
 
 Before starting, ensure your system meets the following requirements:
 
 - **RAM**: Minimum 2GB
-- **CPU**: At least 1 cores
+- **CPU**: At least 1 core
 - **Java**: OpenJDK 17 (or the version required by the latest Nexus release)
 
-### Provision an EC2 Instance (or any other VM instance)
+### 1.2 Provision an EC2 Instance (or any other VM instance)
 
 - **Name**: NEXUS-SERVER
 - **AMI**: Amazon Linux 2
@@ -18,7 +18,7 @@ Before starting, ensure your system meets the following requirements:
 - **Security Group**
   - Ingress: Allow 22 (ssh), 8081 (nexus)
 
-### Setup Nexus server
+### 1.3 Setup Nexus server
 
 - **Install Java**
 
@@ -144,7 +144,7 @@ sudo systemctl enable nexus
 sudo systemctl status nexus
 ```
 
-### Access Nexus Web UI
+### 1.4 Access Nexus Web UI
 
 - Open your web browser and navigate to: **http://<your-server-ip>:8081**.
 
@@ -155,7 +155,7 @@ sudo systemctl status nexus
 
 - Set a new password for nexus
 
-## Step-XX: Setup Jenkins Server with Maven
+## Step-02: Setup Jenkins Server with Maven
 
 ### Create an EC2 Instance
 
@@ -167,12 +167,12 @@ sudo systemctl status nexus
 
 ### Store Nexus server credentials on Jenkins server
 
-## Step-XX: Develop Maven Project
+## Step-03: Develop Maven Project
 
-## Step-XX: Update pom.xml file for Nexus integration
+## Step-04: Update pom.xml file for Nexus integration
 
-## Step-XX: Create settings.xml for Nexus specifications
+## Step-05: Create settings.xml for Nexus specifications
 
-## Step-XX: Create Jenkinsfile
+## Step-06: Create Jenkinsfile
 
-## Step-XX: Create Jenkins Job
+## Step-07: Create Jenkins Job

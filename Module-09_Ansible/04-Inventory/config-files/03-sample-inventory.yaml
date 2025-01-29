@@ -1,0 +1,14 @@
+# Sample Ansible inventory file in YAML format
+
+all:
+  hosts:
+    server1.novatec.com:
+    server2.novatec.com:
+  children:
+    dbServers:
+      hosts:
+        dbServer1.novatec.com:
+        dbServer2.novatec.com:
+    webServers:
+      hosts:
+        webServer1.novatec.com:

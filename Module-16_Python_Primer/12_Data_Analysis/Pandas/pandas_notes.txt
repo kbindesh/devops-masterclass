@@ -1,0 +1,307 @@
+# INSTALL AND IMPORT PANDAS
+===========================
+
+# SERIES - ONE DIMENTIONAL ARRAY
+=================================
+
+   # srs = pd.Series([10,20,30,40,50])
+
+     print(srs)
+
+   # Access multiple values using index
+
+     print(srs[[0,1,2]])
+
+   # Define character as an index
+
+     srs = pd.Series([10,20,30,40,50], index=['a','b','c','d','e'])
+
+   # Performing operation on every element in the Series
+
+     print(srs * 2)  OR print(srs * math.pi) OR print(srs / 2)
+
+   # Access multiple values using char as an index
+
+     print(srs[['c','d']])
+
+   # Example: Series
+
+     polulation = []
+     countries = []
+
+     pop_srs = pd.Series(polulation, index=countries)
+     
+   # Series Operations - (min, max, mean)
+
+     print(pop_srs.min())
+     print(pop_srs.max())
+     print(pop_srs.mean())
+
+
+# CREATE A DATAFRAME
+=====================
+
+  [You can create a DataFrame from List, dictionary, NumPy array]
+
+1. Create a DF (1-D) from List
+   
+   df = pd.DataFrame([10,20,30,40])
+
+2. Create a multi-dimentional DF from list
+   
+   d = [['Aditya',40],['Adam',33],['Bhakti',32]]
+   df = pd.DataFrame(d, columns=['Name','Age'])
+
+3. Create a multi-dimentional array from dictionary
+   
+   d = {
+        'Name': ['Aditya','Adam','Bhakti'],
+        'Age' : [40,33,32]
+       }
+   df = pd.DataFrame(d, index=['Cust1','Cust2','Cust3'])
+
+4. Create a DataFrame using Numpy random function
+   
+   df = pd.DataFrame(np.random.randint(0,100, size=10), columns=['Age'])
+
+# DATAFRAME DATATYPE - DISPLAYS DTYPE OF ALL THE DF COLS
+========================================================
+
+  df.dtypes
+
+# UDAPTING THE DATATYPE OF A COLUMN - astype()
+==============================================
+
+  df[['Countries','Region']] = df[['Countries','Region']].astype('string')
+
+# DATAFRAME OPERATIONS
+=======================
+
+1. Column Manipulation
+   
+   d = {
+        'Name': ['Aditya','Adam','Bhakti','Joe','Greg'],
+        'Age' : [40,33,32,50,68]
+       }
+   df = pd.DataFrame(d, index=['p1','p2','p3','p4','p5'])
+
+   # Select first (Name) column 
+     
+     df['Name']
+
+   # Select second column (Age)
+     df['Age']
+
+   # Delete a column (Age)
+     del df['Age']
+
+     OR
+
+     df.drop(labels='col_header', axis=1, inplace=True)
+
+     OR
+
+     df.drop(columns='col_header', inplace=True)
+
+   # Add a new column (Newcol)
+     
+     df['NewCol'] = pd.Series([10,52,42,55,23], index=['p1','p2','p3','p4','p5'])
+
+>> ASSIGNMENT: Read the Countries.csv and create a new column as total in DF = Col1 + Col2 (Country and Region)
+
+
+2. Row Manipulation (loc() | iloc() | at() | iat() )
+  
+   # Select a Row using loc()
+     df.loc[0] 
+
+   # Select a Row using iloc() - Integer location
+     df.iloc[0]
+     df.iloc[1]
+
+   # Select a value from DataFrame using at()
+     df.at['p1','Age']
+
+   # Select a value from DataFrame using iat() - Integer at
+
+
+## Speed comparision between DataFrame operations
+
+## Reading CSV and Text file
+   
+   # Read the csv
+     
+     import pandas as pd
+     df = pd.read_csv('csv_name.csv')
+     print(df)
+
+   # Read the csv with custom column labels
+    
+     import pandas as pd
+     df = pd.read_csv('csv_name.csv', names=['Col1','col2','col3'])
+     print(df)
+
+   # Read the csv and set a column as an index	
+
+     import pandas as pd
+     df = pd.read_csv('csv_name.csv', names=['Col1','col2','col3'], index_col='A')
+     print(df)
+
+   # Read the csv with custom column header and hide the previous headers
+
+     import pandas as pd
+     df = pd.read_csv('csv_name.csv', skiprows=1, names=['Col1','col2','col3'], index_col='A')
+     print(df)     
+
+
+## Read the TXT files 
+
+## Performaing various operations on DataFrames
+
+   # head()
+
+   # tail()
+
+   # info() - To get more details about the csv (count, Not Null)
+      
+     df = pd.read_csv('csv_name.csv')
+     df.info()
+
+   # describe() - To get more statistics details about the csv (mean, min, max, std etc)
+     
+     df = pd.read_csv('csv_name.csv')
+     df.describe() 
+
+   # min()
+
+     # To get minimum value associated with every column in the csv
+
+       df = pd.read_csv('csv_name.csv')
+       df.min()   
+
+     # To get minimum value associated with a particular column in the csv
+       
+       df = pd.read_csv('csv_name.csv')
+       df['Col_Name'].min()
+
+   # max()
+
+     # To get maximum value associated with every column in the csv
+
+       df = pd.read_csv('csv_name.csv')
+       df.max()   
+
+     # To get maximum value associated with a particular column in the csv
+       
+       df = pd.read_csv('csv_name.csv')
+       df['Col_Name'].max()
+
+   # mean()
+
+     # To get mean value associated with every column in the csv
+
+       df = pd.read_csv('csv_name.csv')
+       df.mean()   
+
+     # To get mean value associated with a particular column in the csv
+       
+       df = pd.read_csv('csv_name.csv')
+       df['Col_Name'].mean()
+
+   # count()
+    
+     df = pd.read_csv('csv_name.csv')
+     df['Col'].count()
+
+   # unique()
+
+     Returns unique values from a column
+
+     df['col'].unique()
+
+# DATA CLEANING & FILTERING
+============================
+  
+
+  import pandas as pd
+
+  df = pd.read_csv('info.txt', sep=',')                   # Have a file with NULL values in it
+
+  # isnull() - To get the dataframe as a binary value (no value=TRUE else FALSE)
+
+    df.isnull()
+
+  # dropna() - To get rid of all the rows (default) or cols with NaN values | axis = 0 , axis =1
+    
+    df.dropna()                  # Temporary drop na rows; doesnt save the changes in DF
+
+    df.dropna(inplace=True)      # Remove the row with NaN values in actual DF
+
+    df.dropna(axis=1, inplace=True)   # Remove the column which has NaN value and save the changes in DF
+
+  # fillna() - To fill all the NaN/Blank values with some number
+
+    df.fillna(num_value_to_be_replaced_with_nan)
+
+    df.fillna(num_value_to_be_replaced_with_nan, inplace=True)
+
+# APPLY() FUNCTION
+====================
+
+  def calc_category(age):
+    if age<=12:
+      return 'Child'
+    elif age>12 and age < 20:
+      return 'Teenager'
+    elif age>=20 and age<=65:
+      return 'Adult'
+    else:
+      return 'Elderly'  
+
+  
+  df = pd.DataFrame(np.random.randint(1,100, size=10), columns=['Age'])
+  df['Category'] = df['Age'].apply(calc_category)
+
+Assignment: Create a csv dataset with two columns 'Name' and 'Age' and add a new column and update the category of every row.
+
+# DATA MANIPULATION
+=====================
+
+   # Read the csv and manipulate the data in dataframe
+
+     df = pd.read_csv('countries.csv')
+
+     print(df.columns)
+
+# DATA AGGREGATION AND GROUPING
+================================
+   
+  # groupby()
+    [Use countries data-set - Country, Region, Continent, Population, Rank]
+
+    df.groupby(by='col_name')
+
+    df.groupby(by='Region')
+
+  # Calculate sum of the polulation of all the groups (countries)
+
+    df.groupby(by='Region').sum()
+
+# EXPORT DATAFRAME TO CSV
+==========================
+
+  df.to_csv('file1.csv')
+
+  ## Saving CSV without headers and index
+
+     df.to_csv('file2.csv', header=False, index=False)
+
+  ## Save the CSV file to a specified location
+
+     df.to_csv(r'C:\Users\Admin\Desktop\file3.csv')
+
+
+  ## Write a DataFrame to CSV file using tab separator
+
+     df.to_csv('Users.csv', sep='\t', index=False,header=True)
+

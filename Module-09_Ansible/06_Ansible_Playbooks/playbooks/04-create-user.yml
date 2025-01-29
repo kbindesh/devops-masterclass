@@ -1,0 +1,13 @@
+---
+- name: Create User Demo
+  hosts: clientnode
+  become: true
+  become_user: root
+  vars:
+    username: "bindesh"
+  tasks:
+    - name: Create a user
+      ansible.builtin.user:
+        name: "{{ username }}"
+        comment: Bindesh Lab User
+        state: present

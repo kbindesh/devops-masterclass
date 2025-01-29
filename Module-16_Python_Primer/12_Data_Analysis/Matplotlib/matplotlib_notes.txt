@@ -1,0 +1,122 @@
+1. IMPORT A PACKAGE
+===================
+   
+   import matplotlib.pyplot as plt
+   import numpy as np
+   import math
+
+2. CREATING A PLOT
+===================
+   
+   x = np.array([1,2,3,4,5])
+   y = np.array([1,6,7,8,3])
+
+   plt.plot(x,y)
+   plt.show()
+
+   ## Create a plot figure using figure() with custom size
+    
+      fig = plt.figure().add_axes(rect=[0,0,1,1])                  # 6.4" x 4.8" | Standard size
+
+   ## Create a plot with custom figure size
+   
+      fig = plt.figure(figsize=(10,10)).add_axes(rect=[0,0,1,1])   # rect syntax (position-from-left, position-from-right, width, height)
+      
+
+   ## Create a plot with custom figure size (alternate way)
+
+      fig = plt.figure(figsize=(5,5))    # Plot area
+
+      axes = fig.add_axes([0,0,1,1])
+      axes.set_xlabel('Region')
+      axes.set_ylabel('Total Population')
+      axes.set_title('some_title_here')
+      
+      plt.bar(x=df['Age'], height=df['Population'], color='red', edgecolor='black')
+      plt.show()
+      
+
+ASSIGNMENT
+============
+>> Plot a sine waves
+
+
+3. Plot LABELS and TITLES
+==========================
+
+  # Labels
+   
+    plt.xlabel('This is x')
+    plt.ylabel('This is y')
+x
+  # Title
+    
+    plt.title('Plotting y=f(x)')
+
+    ## Change the default font style of the Title
+
+    cust_fntstyle = {'family':'serif', 'color':'red', 'size': 13}
+    plt.title('Title', fontdict=cust_fntstyle)
+
+4. LINES AND MARKERS
+=====================
+
+   # Markers (o,*,) - Are used to highlight data points
+    
+     ## Plot graph with dot marker
+     plt.plot(x,y, marker='o')
+
+     ## Marker size
+     plt.plot(x,y, marker='o', ms=15)
+
+     ## Marker color ('mec' - border and 'mfc' - face)
+     plt.plot(x,y, marker='o' ms=15, mfc='red')
+
+   
+   # Lines
+  
+     ## Line style (dashed | dotted | dashdot)
+        plt.plot(x,y, ls='dashed')
+     
+     ## Line color (works both with hex and string)
+        plt.plot(x,y, ls='dashed', color='red')
+
+     ## Line width
+        plt.plot(x,y, ls='dashed', color='red', linewidth=10)
+        
+
+5. BAR PLOTS
+=============
+
+    ## Plot bar chart
+
+      plt.bar(x,y)
+
+    ## Plot bar chart with multi-colors
+
+      plt.bar(x,y, color=['r','g','b'])
+
+6. SCATTER PLOTS
+
+
+7. LINE PLOTS
+
+
+8. BOX PLOTS
+
+ASSIGNMENT
+==========
+>> Create multiple line plots. You have a below dataset - which has "AGE" and "POPULATION" of malasia and israel.
+
+age = np.array([10, 20, 30, 40, 50, 60, 70, 80, 90])
+population_malasia = np.array([100, 160, 310, 420, 490, 700, 675, 340, 80])
+population_israel = np.array([140, 180, 350, 598, 780, 981, 1351, 780, 157])
+
+Create line plots both for France as well as for the US on a single plot. 
+
+>> Create a bar graph for visualalizing population by Region. Use attached data-set(.csv).
+
+
+
+   
+   

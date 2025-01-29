@@ -1,0 +1,25 @@
+# Description: This playbook is for demonstrating the way ansible handlers work
+# Author: Bindesh
+
+- name: Ansible Handlers Demo
+  hosts: all
+  remote_user: root
+  become: true
+  tasks:
+    - name: Install Apache
+      yum:
+        name: httpd
+        state: installed
+      notify:
+        - Restart Apache
+    - name: Install MySql
+      yum:
+        name: mysql
+        state: started
+      notify:
+        - Restart Apache
+  handlers:
+    - name: Restart Apache
+      service:
+        name: httpd
+        state: restarted

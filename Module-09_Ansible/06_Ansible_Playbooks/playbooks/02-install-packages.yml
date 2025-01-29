@@ -1,0 +1,18 @@
+---
+- name: Install Package
+  hosts: clientnode
+  tasks:
+    - name: Install HTTPD
+      become: true
+      become_user: root
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+    - name: Start HTTPD Service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+    - name: Enable HTTPD Service
+      ansible.builtin.service:
+        name: httpd
+        enabled: yes

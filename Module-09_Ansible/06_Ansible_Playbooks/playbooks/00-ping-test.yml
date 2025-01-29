@@ -1,0 +1,6 @@
+---
+- name: ping test
+  hosts: clientnode
+  tasks:
+    - name: ping test
+      ansible.builtin.ping:

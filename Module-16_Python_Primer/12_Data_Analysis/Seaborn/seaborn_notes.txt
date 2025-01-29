@@ -1,0 +1,42 @@
+1. Catagorical Plots
+======================
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+
+countries_df = pd.read_csv('countries.csv')
+
+# Bar Plot
+sns.barplot(x=countries_df['Region'], y=countries_df['Population'])
+
+# Bar Plot without deviation marker
+sns.barplot(x=countries_df['Region'], y=countries_df['Population'], ci=None)
+
+# Bar Plot on y-axis
+sns.barplot(y=countries_df['Region'], x=countries_df['Population'])
+
+# Alternate way of plotting bar chart
+sns.barplot(x='Region', y='Population', data=countries_df, ci=None)
+
+# Adding Legend (Hue)
+sns.barplot(x='Region', y='Population', data=countries_df, ci=None, hue='Region')     # dodge=false 
+
+# Customize the size of plot
+
+plt.figure(figsize=(10,10))
+sns.barplot(x='Region', y='Population', data=countries_df, ci=None, hue='Region')
+
+2. Relational Plots
+====================
+
+3. Distribution Plots
+======================
+
+4. Regression Plots
+======================
+
+5. Matrix Plots
+======================
+
+6. Style and Presentation
+=========================

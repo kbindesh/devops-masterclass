@@ -1,0 +1,151 @@
+1. INSTALL AND IMPORT NUMPY
+============================
+import numpy as np
+
+2. CREATE A NUMPY ARRAY
+========================
+
+   # Create a numpy array from list
+
+     import numpy as np
+
+     py_list = [1,2,3,4,5]
+     np_arr = np.array(py_list)
+
+   # Create a numpy array
+     
+     np_arr = np.array([1,2,3,4,5])
+
+   # Cannot store differnt types of data in NumPy
+
+     np_arr = np.array([1,2.4,'three',4,True])
+
+3. ARRAY INDEXING
+==================
+
+   np_arr = np.array([1,2,3,4,5])
+
+   # locate first element of the array 
+     np_arr[0]
+
+4. UPDATING THE ARRAY BASED ON INDEX
+=====================================
+
+   np_arr = np.array([1,2,3,4,5])
+   np_arr[1] = 20
+
+5. INSERT NEW ITEM IN ARRAY BASED ON INDEX - insert()
+======================================================
+
+   np_arr = np.array([1,2,3,4,5])
+
+   # Insert an item on a particular index position - insert(array, index_pos, value_to_insert)
+   np_arr = np.insert(np_array, 2, 30)
+
+
+6. DIMENTION, SIZE AND SHAPE OF THE ARRAY
+===========================================
+
+   # Size of the NumPy array
+
+     np_arr = np.array([1,2,3,4,5,6,7,8,9,10])
+     print(np_arr.size)
+
+   # Dimentation of the NumPy array
+
+     np_arr = np.array([1,2,3,4,5,6,7,8,9,10])
+     print(np_arr.ndim)
+
+   # Shape of the NumPy array
+
+     np_arr = np.array([1,2,3,4,5,6,7,8,9,10])
+     print(np_arr.shape)
+
+   # Create a 2 dimentional array 
+
+     np_arr = np.array([[1,2,3,4,5],[6,7,8,9,10]])
+     print(np_arr.ndim)
+     print(np_arr.shape)
+
+
+7. ARRAY INDEXING
+==================
+
+   np_arr = np.array([[1,2,3,4,5],[6,7,8,9,10]])   
+   
+   # Access the first element of first row
+
+     np_arr[0][0]
+
+   # Access the first element of second row
+
+     np_arr[1][0]
+
+>> ASSIGNMENT: Print all the elements of the 'np_arr'. Hint: You may use looping statement
+
+   for row in np_arr:
+      for item in row:
+          print(item)
+
+
+   # Negative index means starting from the last of array
+     
+     np_arr = np.array([1,2,3,4,5,6,7,8,9,10])
+     np_arr[-1]
+
+
+8. SLICING ARRAYS (:)
+===================
+
+   # np_arr = np.array([1,2,3,4,5,6,7,8,9,10])
+     
+     print(np_arr[0:4]) OR print(np_arr[:4])
+
+   # Slice an array with step value
+
+     print(np_arr[1:5:1])
+
+     print(np_arr[7:1:-1])
+
+>> ASSIGNMENT: Print the below array in reverse order:
+
+   np_arr = np.array([1,2,3,4,5,6,7,8,9,10])
+
+ 
+8. UPDATING THE ARRAY VALUES
+=============================
+
+   np_arr = np.array([[1,2,3,4,5],[6,7,8,9,10]])
+
+   np_arr[0][1] = 50
+
+9. DATATYPES OF ARRAY (arr.dtype()) - [i - integer | f - float | S - String]
+============================================================================
+
+   # np_arr = np.array([2,5,3,5])
+
+     print(np_arr.dtype)
+
+   # Set the datatype of an array
+
+     np_arr = np.array([2,5,3.5,5.2], dtype='f')
+
+
+10. RESHAPING ARRAY - reshape()
+=================================
+
+   # np_arr = np.array([1,2,3,4,5,6,7,8,9,10])
+
+     print(np_arr.reshape(5,2))
+
+>> ASSIGNMENT: You have a NumPy array: [[1, 2 , 3], [1, 2 , 3], [1, 2 , 3]]. 
+Transform this two-dimensional array into a one-dimensional sequence.
+
+So the result should be like this: [1, 2, 3, 1, 2, 3, 1, 2, 3]
+
+
+  
+
+
+
+

@@ -155,24 +155,160 @@ sudo systemctl status nexus
 
 - Set a new password for nexus
 
-## Step-02: Setup Jenkins Server with Maven
+## Step-02: Create a Nexus Repositories (snapshot, release)
 
-### Create an EC2 Instance
+- Navigate to Nexus dashboard as an admin user
+- Click the gear icon on the upper toolbar >> click Repositories >> Click **Create Repository** button
+- **Repository-01**
 
-### Install & Configure Jenkins
+  - Name: bin-mvnapp-SNAPSHOT
+  - Version Policy: Snapshot
+  - [*Leave rest of the settings to default*]
 
-### Install required Jenkins Plugins
+- **Repository-02**
+  - Name: bin-mvnapp-RELEASE
+  - Version Policy: Release
+  - [*Leave rest of the settings to default*]
 
-### Add location of Java & Maven tools on Jenkins server
+## Step-03: Setup Jenkins Server
 
-### Store Nexus server credentials on Jenkins server
+### 3.1 Create an EC2 Instance and Configure
 
-## Step-03: Develop Maven Project
+- [Setup Jenkins server on Linux (Amazon Linux 2)](https://github.com/kbindesh/jenkins-masterclass/tree/main/Module-03_Setting_up_Jenkins/01-jenkins-on-amazon-linux)
 
-## Step-04: Update pom.xml file for Nexus integration
+### 3.2 Install & Configure Maven on Jenkins server
 
-## Step-05: Create settings.xml for Nexus specifications
+- [Setup Maven on Linux (Amazon Linux 2)](https://github.com/kbindesh/maven-bootcamp/blob/main/Module-02_Setting_up_Maven_Environment/01-setup-mvn-on-amzn-linux-2.md)
 
-## Step-06: Create Jenkinsfile
+### 3.3 Install required Jenkins Plugins
+
+- Maven Invoker
+- Maven Integration
+- **Nexus Artifact Uploader**
+- Pipeline: Stage view
+- SonarQube Scanner
+- Pipeline Utility Steps
+- **Script Security Plugin** (For using readMavenPom() function in Jenkinsfile)
+
+### 3.4 Add location of Java & Maven tools on Jenkins server
+
+- Jenkins Dashboard >> Manage Jenkins >> **Tools**
+
+- **JDK Installations**
+
+  - Name: JDK-17
+  - Location: /usr/lib/jvm/java-17-amazon-corretto.x86_64
+
+- **Maven Installations**
+
+  - Name: Maven-3.9.8
+  - Location: /opt/apache-maven-3.9.8
+
+### 3.5 Adding Nexus server credentials to Jenkins
+
+- Jenkins Dashboard >> Manage Jenkins >> Credentials >> Global
+  - Kind: Username & Password
+  - Scope: Global
+  - Username: admin
+  - Password: <your_nexus_server_password>
+  - ID: **nexus**
+
+## Step-04: Develop Maven Project
+
+- The sample maven application used in this tutorial is a basic java application.
+- You may clone the sample app repo from https://github.com/kbindesh/jenkins-pipeline-lab/tree/master
+
+```
+git clone https://github.com/kbindesh/jenkins-pipeline-lab/tree/master
+```
+
+## Step-05: Update the Jenkinsfile (with nexus stage)
+
+- **Note**: Kindly replace the placeholder on line #14 with your _nexus server ip address_ and line #16 with your _nexus repository name_.
+
+```
+pipeline {
+  agent any
+
+  tools {
+    maven 'Maven-3.9.8'
+    jdk 'Java-17'
+  }
+
+  environment {
+    MVN_ARTIFACT_ID = readMavenPom().getArtifactId()
+    MVN_APP_VERSION = readMavenPom().getVersion()
+    MVN_GROUP_ID = readMavenPom().getGroupId()
+    ARTIFACT_FILE_TYPE = 'jar'
+    NEXUS_SERVER_URL = '<nexus_server_private_ip>:8081'
+    NEXUS_VERSION = 'nexus3'
+    NEXUS_REPO_NAME = 'bin-mvnapp-SNAPSHOT'
+    NEXUS_PROTOCOL = 'http'
+  }
+
+  stages{
+    stage('Unit Testing - JUnit'){
+      steps{
+        sh 'mvn test'
+      }
+      post {
+        always {
+          junit 'target/surefire-reports/*.xml'
+        }
+      }
+    }
+    stage('Code Review - SonarQube'){
+      steps{
+        echo 'Performaing static code analysis..'
+      }
+    }
+    stage('Package Application - Maven'){
+      steps{
+        sh 'mvn clean package -DskipTests=true'
+        archiveArtifacts artifacts: 'target/*.jar'
+      }
+    }
+    stage('Publish Artifacts - Nexus'){
+      steps{
+        nexusArtifactUploader artifacts: [[artifactId: '${MVN_ARTIFACT_ID}', classifier: '', file: '${MVN_ARTIFACT_ID}-${MVN_APP_VERSION}.jar', type: '${ARTIFACT_FILE_TYPE}']], credentialsId: 'nexus', groupId: '${MVN_GROUP_ID}', nexusUrl: '${NEXUS_SERVER_URL}', nexusVersion: '${NEXUS_VERSION}', protocol: '${NEXUS_PROTOCOL}', repository: '${NEXUS_REPO_NAME}', version: '${MVN_APP_VERSION}'
+      }
+    }
+  }
+}
+
+```
+
+## Step-06: Push the changes on GitHub
+
+```
+git add .
+
+git commit -m "Maven App with Nexus Integration v1.0"
+
+git remote add origin <your_github_repo_url>
+
+git push -u origin master
+```
 
 ## Step-07: Create Jenkins Job
+
+- Jenkins Dashboard >> New Item
+  - Name: mvn-nexus-integration-lab
+  - Type: Pipeline
+  - Description: Jenkins job for publishing artifacts to Nexus
+  - Pipeline
+    - Definition: Pipeline script from SCM
+    - SCM: Git
+    - Repository URL: <your_github_repo_url>
+    - Credentials: <leave_blank_if_repo_is_public>
+    - Branches to build: master
+    - Script Path: Jenkinsfile
+
+## Step-08: Verify the published artifacts on Nexus
+
+- Navigate to Nexus server dashboard >> Repositories >> Select the snapshot repository we created in the earlier step.
+- You should see the maven package with \*.jar file.
+
+## References
+
+- [Maven POM file](https://maven.apache.org/pom.html)

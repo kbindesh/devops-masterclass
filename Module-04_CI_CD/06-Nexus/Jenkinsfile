@@ -1,0 +1,48 @@
+pipeline {
+  agent any
+
+  tools {
+    maven 'Maven-3.9.8'
+    jdk 'Java-17'
+  }
+
+  environment {
+    MVN_ARTIFACT_ID = readMavenPom().getArtifactId()
+    MVN_APP_VERSION = readMavenPom().getVersion()
+    MVN_GROUP_ID = readMavenPom().getGroupId()
+    ARTIFACT_FILE_TYPE = 'jar'
+    NEXUS_SERVER_URL = '<nexus_server_private_ip>:8081'
+    NEXUS_VERSION = 'nexus3'
+    NEXUS_REPO_NAME = 'bin-mvnapp-SNAPSHOT'
+    NEXUS_PROTOCOL = 'http'
+  }
+
+  stages{
+    stage('Unit Testing - JUnit'){
+      steps{
+        sh 'mvn test'
+      }
+      post {
+        always {
+          junit 'target/surefire-reports/*.xml'
+        }
+      }
+    }
+    stage('Code Review - SonarQube'){
+      steps{
+        echo 'Performaing static code analysis..'
+      }
+    }
+    stage('Package Application - Maven'){
+      steps{
+        sh 'mvn clean package -DskipTests=true'
+        archiveArtifacts artifacts: 'target/*.jar'
+      }
+    }
+    stage('Publish Artifacts - Nexus'){
+      steps{
+        nexusArtifactUploader artifacts: [[artifactId: '${MVN_ARTIFACT_ID}', classifier: '', file: '${MVN_ARTIFACT_ID}-${MVN_APP_VERSION}.jar', type: '${ARTIFACT_FILE_TYPE}']], credentialsId: 'nexus', groupId: '${MVN_GROUP_ID}', nexusUrl: '${NEXUS_SERVER_URL}', nexusVersion: '${NEXUS_VERSION}', protocol: '${NEXUS_PROTOCOL}', repository: '${NEXUS_REPO_NAME}', version: '${MVN_APP_VERSION}'
+      }
+    }
+  }
+}

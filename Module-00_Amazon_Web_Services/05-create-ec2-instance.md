@@ -21,9 +21,10 @@ To create an EC2 instance, you must have the following resources as a prerequisi
 # AWS CLI command to create a security group | Replace the 'VPC ID' and 'Name' as per your requirement
 
 aws ec2 create-security-group --group-name allow-ssh-sg --description "This SG is created using AWS CLI" --tag-specifications 'ResourceType=security-group,Tags=[{Key=Name,Value=allow-ssh-sg}]' --vpc-id "vpc-2e711a53"
+```
 
-
-# The preceding command execution will result in the following output
+```
+# The preceding command execution will result in similar output
 {
     "GroupId": "sg-013e389242f9e7895",
     "Tags": [
@@ -39,9 +40,10 @@ aws ec2 create-security-group --group-name allow-ssh-sg --description "This SG i
 
 ```
 aws ec2 authorize-security-group-ingress --group-id "sg-013e389242f9e7895" --protocol tcp --port 22 --cidr "0.0.0.0/0" --tag-specifications 'ResourceType=security-group-rule,Tags=[{Key=Name,Value=allow-ssh-for-all}]'
+```
 
-
-# The preceding command execution will result in the following output
+```
+# The preceding command execution will result in similar output
 {
     "Return": true,
     "SecurityGroupRules": [

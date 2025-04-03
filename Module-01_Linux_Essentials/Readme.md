@@ -19,7 +19,6 @@
 - Popular Linux distributions include:
 
   - Ubuntu
-
   - Fedora
   - Amazon Linux
   - CentOS

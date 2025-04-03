@@ -1,0 +1,9 @@
+[
+  {
+    "DeviceName": "/dev/sdf",
+    "Ebs": {
+      "VolumeSize": 20,
+      "DeleteOnTermination": false
+    }
+  }
+]

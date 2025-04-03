@@ -130,3 +130,11 @@ aws ec2 delete-security-group --group-name allow-ssh-sg
 # Delete the above KeyPair
 aws ec2 delete-key-pair --key-name lnx-ec2-kp
 ```
+
+## References
+
+- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html
+- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-key-pair.html
+- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-security-group.html
+- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/terminate-instances.html
+- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/delete-key-pair.html

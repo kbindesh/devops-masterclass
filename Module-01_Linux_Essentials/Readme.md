@@ -1,6 +1,6 @@
-# Linux for Cloud and DevOps Engineers
+# *Linux Essentials* for Cloud and DevOps Engineers
 
-## 01. Introduction to Linux
+## 01. Introduction to `Linux`
 
 ### 1.1 What is Linux?
 
@@ -76,7 +76,7 @@
   3. Using **ssh** utility (from your local windows/linux/mac machine)
   4. Using any external SSH clients (mobaxterm, putty etc)
 
-## Basic Linux Commands
+## 02. Basic Linux Commands
 
 | Command      | Description                                                             |
 | :----------- | :---------------------------------------------------------------------- |
@@ -90,7 +90,7 @@
 | **finger**   | Get the details of the user                                             |
 | **who**      | Displays information about all the currently logged-in users            |
 
-## 01. System Information
+## 03. System Information
 
 ```
 # Display Linux system information
@@ -126,7 +126,7 @@ w
 whoami
 ```
 
-## 02. Hardware Information
+## 04. Hardware Information
 
 ```
 # Display messages in kernel ring buffer
@@ -160,7 +160,7 @@ hdparm -tT /dev/sda
 badblocks -s /dev/sda
 ```
 
-## 03. User Management
+## 05. User Management
 
 ```
 # Display the user and group ids of your current user.
@@ -188,7 +188,7 @@ userdel john
 usermod -aG sales john
 ```
 
-## 04. File & Directory Management
+## 06. File & Directory Management
 
 ```
 # List all files in a long listing (detailed) format
@@ -243,7 +243,7 @@ tail file
 tail -f file
 ```
 
-## 05. File Permissions
+## 07. File Permissions
 
 ![image](https://github.com/kbindesh/devops-masterclass/assets/30317164/6dd466f2-5fb2-40b0-bed2-e2972d9f85eb)
 
@@ -270,7 +270,7 @@ tail -f file
         - = no access
 ```
 
-## 06. Process Management
+## 08. Process Management
 
 ```
 # Display your currently running processes
@@ -301,7 +301,7 @@ program &
 bg
 ```
 
-## 07. Network
+## 09. Networking
 
 ```
 # Display all network interfaces and IP address
@@ -341,7 +341,7 @@ wget http://bindeshtutorials.com/file
 netstat -nutlp
 ```
 
-## 08. Compression/Archives
+## 10. Compression/Archives
 
 ```
 # Create tar named archive.tar containing directory.
@@ -363,7 +363,7 @@ tar cjf archive.tar.bz2 directory
 tar xjf archive.tar.bz2
 ```
 
-## 09. Package Management
+## 11. Package Management
 
 ```
 # Search for a package by keyword.
@@ -393,7 +393,7 @@ make
 make install
 ```
 
-## 10. Search
+## 12. Searching
 
 ```
 # Search for pattern in file
@@ -415,7 +415,7 @@ find /home/john -name 'prefix*'
 find /home -size +100M
 ```
 
-## 11. Login or Connectivity
+## 13. Login or Connectivity
 
 ```
 # Connect to host as your local username.
@@ -432,7 +432,7 @@ ssh -i <keypair> username@public_ip_or_dns_name
 
 ```
 
-## 12. File Transfer
+## 14. File Transfer
 
 ```
 # Secure copy file.txt to the /tmp folder on server

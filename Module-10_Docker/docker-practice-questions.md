@@ -25,7 +25,7 @@ You may try to answer the following questions to assess your learning progress:
 7. Which two core concepts of Linux are containers based on?
 8. On which operating systems is Docker Desktop available?
 
-# Container Lifecycle
+## Container Lifecycle
 
 - Which two important concepts of Linux are enabling factors -r containers?
 - What are the possible states a container can be in?

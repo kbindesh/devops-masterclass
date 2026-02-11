@@ -6,7 +6,7 @@ This lab will demonstrate the process of building a monitoring stack, with servi
 
 ## Step-01: Prerequisites
 
-## Step-02: Install and Configure Grafana on EC2 instance
+## Step-02: Install and Configure Grafana on Linux (Amazon Linux)
 
 ## Step-03: Access Grafana via Web interface
 
